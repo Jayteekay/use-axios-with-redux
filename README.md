@@ -24,7 +24,7 @@ import useAxiosWithRedux from 'use-axios-with-redux';
 For Typescript, you should also import networkRequestType like this:
 
 ```js
-import { networkRequestType } from 'use-axios-with-redux';
+import { NetworkRequestType } from 'use-axios-with-redux';
 ```
 
 Customize **useNetworkRequest** like this:
@@ -33,8 +33,8 @@ Customize **useNetworkRequest** like this:
 export const useNetworkRequest = <RequestDataType, ResponseDataType>(
     url: string,
     config?: AxiosRequestConfig,
-    reduxConfig?: reduxConfigType,
-): networkRequestType<RequestDataType, ResponseDataType> => {
+    reduxConfig?: ReduxConfigType,
+): NetworkRequestType<RequestDataType, ResponseDataType> => {
     return useAxiosWithRedux<RequestDataType, ResponseDataType>(
         url,
         {
