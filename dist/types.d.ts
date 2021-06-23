@@ -1,19 +1,19 @@
-import { AxiosError } from 'axios';
-import { TypedUseSelectorHook } from 'react-redux';
-import { Dispatch } from 'redux';
-export declare type reduxConfigType = {
+import { AxiosError } from "axios";
+import { TypedUseSelectorHook } from "react-redux";
+import { Dispatch } from "redux";
+export declare type ReduxConfigType = {
     action?: string;
     callback?: () => void;
     appDispatch: Dispatch;
     useSelector: TypedUseSelectorHook<unknown>;
 };
-export declare type requestState<ResponseDataType> = {
+export declare type RequestState<ResponseDataType> = {
     data: ResponseDataType | null;
     error: AxiosError | null;
     isLoading: boolean;
 };
-export declare type networkRequestType<RequestDataType, ResponseDataType> = [
-    requestState<ResponseDataType>,
+export declare type NetworkRequestType<RequestDataType, ResponseDataType> = [
+    RequestState<ResponseDataType>,
     (body?: RequestDataType, params?: RequestDataType) => void,
     () => void,
     () => void,
