@@ -1,16 +1,16 @@
 import { render } from "@testing-library/react";
 import { AxiosRequestConfig } from "axios";
-import { networkRequestType, reduxConfigType } from "./types";
+import { NetworkRequestType, ReduxConfigType } from "./types";
 import useAxiosWithRedux from "./useAxiosWithRedux";
 import * as reactRedux from "react-redux";
 import { Dispatch } from "redux";
 
 const setup = (
   url: string,
-  reduxOption: reduxConfigType,
+  reduxOption: ReduxConfigType,
   config?: AxiosRequestConfig
 ) => {
-  const returnValue: networkRequestType<void, null> = [
+  const returnValue: NetworkRequestType<void, null> = [
     { data: null, error: null, isLoading: false },
     () => null,
     () => null,

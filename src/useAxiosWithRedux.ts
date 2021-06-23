@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useState } from 'react';
-import { networkRequestType, reduxConfigType } from './types';
+import { NetworkRequestType, ReduxConfigType } from './types';
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -10,9 +10,9 @@ const axiosInstance = axios.create({
 
 const useAxiosWithRedux = <RequestDataType, ResponseDataType>(
     url: string,
-    reduxConfig: reduxConfigType,
+    reduxConfig: ReduxConfigType,
     config?: AxiosRequestConfig,
-): networkRequestType<RequestDataType, ResponseDataType> => {
+): NetworkRequestType<RequestDataType, ResponseDataType> => {
     const appDispatch = reduxConfig.appDispatch;
 
     const reduxAction = reduxConfig?.action;

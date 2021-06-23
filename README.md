@@ -8,8 +8,8 @@ The purpose of this hook is to create a reusable flexible hook that can handle n
 
 You need to have axios installed in your project in your React Native project.
 
-```js
-    npm install axios
+```
+    npm install use-axios-with-redux
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ import useAxiosWithRedux from 'use-axios-with-redux';
 For Typescript, you should also import networkRequestType like this:
 
 ```js
-import { networkRequestType } from 'use-axios-with-redux/types';
+import { networkRequestType } from 'use-axios-with-redux';
 ```
 
 Customize **useNetworkRequest** like this:
