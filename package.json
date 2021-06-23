@@ -1,0 +1,41 @@
+{
+  "name": "use-axios-with-redux",
+  "version": "1.0.0",
+  "description": "A react hook to aggregate axios network request an react redux",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "prepublish": "tsc",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jayteekay/use-axios-with-redux.git"
+  },
+  "keywords": [
+    "axios",
+    "react",
+    "redux",
+    "request"
+  ],
+  "author": "Tinuoye Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jayteekay/use-axios-with-redux/issues"
+  },
+  "homepage": "https://github.com/Jayteekay/use-axios-with-redux#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "jest": "^27.0.5",
+    "react": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "ts-jest": "^27.0.3"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.7",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.11"
+  }
+}
