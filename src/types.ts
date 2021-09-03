@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 
 export type ReduxConfigType = {
   action?: string;
-  callback?: () => void;
+  callback?: (state: unknown) => any;
   appDispatch: Dispatch;
   useSelector: TypedUseSelectorHook<unknown>;
 };
