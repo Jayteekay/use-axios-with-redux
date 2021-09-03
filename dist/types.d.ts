@@ -3,7 +3,7 @@ import { TypedUseSelectorHook } from "react-redux";
 import { Dispatch } from "redux";
 export declare type ReduxConfigType = {
     action?: string;
-    callback?: (state: unknown) => any;
+    callback?: (state: any) => any;
     appDispatch: Dispatch;
     useSelector: TypedUseSelectorHook<unknown>;
 };
