@@ -32,9 +32,6 @@ var useAxiosWithRedux = function (url, reduxConfig, config) {
     var _c = react_1.useState(false), isLoading = _c[0], setIsLoading = _c[1];
     var _d = react_1.useState(null), dataPromise = _d[0], setDataPromise = _d[1];
     var storedResponse = reduxConfig.useSelector(reduxCallback || (function () { return null; }));
-    if (shouldReturnStoredResponse) {
-        setData(storedResponse);
-    }
     var reset = function () {
         setData(null);
         setError(null);
@@ -59,8 +56,13 @@ var useAxiosWithRedux = function (url, reduxConfig, config) {
         setDataPromise(request);
     };
     var cancel = function () {
-        source.cancel('Operation cancelled by the user.');
+        source.cancel("Operation cancelled by the user.");
     };
+    react_1.useEffect(function () {
+        if (shouldReturnStoredResponse) {
+            setData(storedResponse);
+        }
+    }, [shouldReturnStoredResponse]);
     return [{ data: data, error: error, isLoading: isLoading }, dispatch, reset, cancel, dataPromise];
 };
 exports.default = useAxiosWithRedux;
