@@ -4,9 +4,6 @@ import { NetworkRequestType, ReduxConfigType } from "./types";
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
-const axiosInstance = axios.create({
-  cancelToken: source.token,
-});
 
 const useAxiosWithRedux = <RequestDataType, ResponseDataType>(
   url: string,
@@ -71,4 +68,9 @@ const useAxiosWithRedux = <RequestDataType, ResponseDataType>(
 
   return [{ data, error, isLoading }, dispatch, reset, cancel, dataPromise];
 };
+
+export const axiosInstance = axios.create({
+  cancelToken: source.token,
+});
+
 export default useAxiosWithRedux;
