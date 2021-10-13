@@ -14,13 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.axiosInstance = void 0;
 var axios_1 = __importDefault(require("axios"));
 var react_1 = require("react");
 var CancelToken = axios_1.default.CancelToken;
 var source = CancelToken.source();
-var axiosInstance = axios_1.default.create({
-    cancelToken: source.token,
-});
 var useAxiosWithRedux = function (url, reduxConfig, config) {
     var appDispatch = reduxConfig.appDispatch;
     var reduxAction = reduxConfig === null || reduxConfig === void 0 ? void 0 : reduxConfig.action;
@@ -41,7 +39,7 @@ var useAxiosWithRedux = function (url, reduxConfig, config) {
     var dispatch = function (body, params) {
         setIsLoading(true);
         var requestConfig = __assign(__assign({ url: url }, config), { data: (config === null || config === void 0 ? void 0 : config.data) ? Object.assign(config === null || config === void 0 ? void 0 : config.data, body) : body, params: params });
-        var request = axiosInstance(requestConfig)
+        var request = exports.axiosInstance(requestConfig)
             .then(function (response) {
             reset();
             setData(response.data);
@@ -65,4 +63,7 @@ var useAxiosWithRedux = function (url, reduxConfig, config) {
     }, [shouldReturnStoredResponse]);
     return [{ data: data, error: error, isLoading: isLoading }, dispatch, reset, cancel, dataPromise];
 };
+exports.axiosInstance = axios_1.default.create({
+    cancelToken: source.token,
+});
 exports.default = useAxiosWithRedux;

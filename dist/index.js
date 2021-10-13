@@ -3,6 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
+exports.axiosInstance = exports.default = void 0;
 var useAxiosWithRedux_1 = require("./useAxiosWithRedux");
 Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(useAxiosWithRedux_1).default; } });
+var useAxiosWithRedux_2 = require("./useAxiosWithRedux");
+Object.defineProperty(exports, "axiosInstance", { enumerable: true, get: function () { return useAxiosWithRedux_2.axiosInstance; } });
