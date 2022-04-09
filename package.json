@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/Jayteekay/use-axios-with-redux#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.26.1",
     "jest": "^27.0.5",
     "react": "^17.0.2",
     "react-redux": "^7.2.4",
