@@ -1,6 +1,6 @@
 {
   "name": "use-axios-with-redux",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "A react hook to aggregate axios network request an react redux",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,10 +26,11 @@
   },
   "homepage": "https://github.com/Jayteekay/use-axios-with-redux#readme",
   "dependencies": {
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "jest": "^27.0.5",
-    "react": "^17.0.2",
-    "react-redux": "^7.2.4",
+    "react": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "redux": "^4.2.0",
     "ts-jest": "^27.0.3"
   },
   "devDependencies": {
