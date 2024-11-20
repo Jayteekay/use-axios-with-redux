@@ -27,13 +27,13 @@ jobs:
       # Step 3: Install the sprungg-code-mapper package
       - name: Install sprungg-code-mapper
         run: |
-          npm install @sprungg/code-mapper
+          npm install -g @sprungg/code-mapper
 
       # Step 4: Generate Codemap data using sprungg-code-mapper CLI
       - name: Generate Codemap Data
         run: |
           # Generate data and save it to mapper-output.json
-          npx @sprungg/code-mapper . json mapper-output.json
+          npx @sprungg/code-mapper . --git --format json --output mapper-output.json
 
       - name: Print JSON output for debugging
         run: |
@@ -46,14 +46,19 @@ jobs:
           REPO_URL: ${{ secrets.SPRUNGG_CODE_MAP_REPO_URL }} # Repository URL for Sprungg reference
           
         run: |
-          # Prepare the JSON payload with properly quoted file content
-          json_content=$(cat mapper-output.json)
-          json_content=$(echo "$json_content" | jq -Rs '.')  # Ensure json_content is a valid JSON string
-          echo "JSON Content: $json_content"
+          # Prepare the JSON payload with the existing mapper-output.json file
+          echo '{"repoUrl": "'"$REPO_URL"'", "codemapData":' > payload.json
+          cat mapper-output.json >> payload.json
+          echo '}' >> payload.json
+          
+          # Use the file with curl
           curl -X POST -H "Content-Type: application/json" \
             -H "Authorization: Bearer $SPRUNGG_API_KEY" \
-            -d '{"repoUrl": "'"$REPO_URL"'", "codemapData": '"$json_content"'}' \
+            --data-binary @payload.json \
             "$SPRUNGG_API_URL"
+          
+          # Clean up the temporary file
+          rm -f payload.json
 
       # Step 6: Clean up generated file
       - name: Clean up generated files
