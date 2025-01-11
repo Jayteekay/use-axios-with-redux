@@ -6,17 +6,42 @@ on:
       - main
       - master
       - develop
-      - feature/* # THIS SHOULD BE ELEGANTLY HANDLED IN THE CODEBASE LATER
-  workflow_dispatch: # Allows manual triggering of the workflow
+      - feature/*
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Add notification at the start
+      - name: Notify workflow start
+        env:
+          SPRUNGG_API_URL: ${{ secrets.SPRUNGG_CODE_MAP_BASE_URL }}
+          SPRUNGG_API_KEY: ${{ secrets.SPRUNGG_CODE_MAP_API_KEY }}
+          REPO_URL: ${{ secrets.SPRUNGG_CODE_MAP_REPO_URL }}
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $SPRUNGG_API_KEY" \
+            --data '{
+              "repository": {
+                "html_url": "'"$REPO_URL"'"
+              },
+              "workflow_run": {
+                "id": "'"$GITHUB_RUN_ID"'",
+                "html_url": "'"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'",
+                "name": "'"$GITHUB_WORKFLOW"'",
+                "status": "pending"
+              }
+            }' \
+            "$SPRUNGG_API_URL/github/webhooks/workflow-run"
+
       # Step 1: Check out the repository
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 
 
       # Step 2: Set up Node.js
       - name: Set up Node.js
@@ -55,7 +80,7 @@ jobs:
           curl -X POST -H "Content-Type: application/json" \
             -H "Authorization: Bearer $SPRUNGG_API_KEY" \
             --data-binary @payload.json \
-            "$SPRUNGG_API_URL"
+            "$SPRUNGG_API_URL/github/save-code-mapper-output"
           
           # Clean up the temporary file
           rm -f payload.json
@@ -64,3 +89,26 @@ jobs:
       - name: Clean up generated files
         run: |
           rm -f mapper-output.json
+
+      - name: Notify workflow status
+        if: always()
+        env:
+          SPRUNGG_API_URL: ${{ secrets.SPRUNGG_CODE_MAP_BASE_URL }}
+          SPRUNGG_API_KEY: ${{ secrets.SPRUNGG_CODE_MAP_API_KEY }}
+          REPO_URL: ${{ secrets.SPRUNGG_CODE_MAP_REPO_URL }}
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $SPRUNGG_API_KEY" \
+            --data '{
+              "repository": {
+                "html_url": "'"$REPO_URL"'"
+              },
+              "workflow_run": {
+                "id": "'"$GITHUB_RUN_ID"'",
+                "html_url": "'"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'",
+                "name": "'"$GITHUB_WORKFLOW"'",
+                "status": "completed"
+              }
+            }' \
+            "$SPRUNGG_API_URL/github/webhooks/workflow-run"
